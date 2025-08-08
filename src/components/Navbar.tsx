@@ -1,68 +1,46 @@
 import { Button } from "@/components/ui/button";
+import { Link, useLocation } from "react-router-dom";
+import { NAV_ITEMS } from "@/constants/navigation";
 
 const Navbar = () => {
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  const location = useLocation();
+  const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
+    <nav className="sticky top-0 z-50 bg-white border-b border-[#EAEAEA] shadow-[0_1px_0_0_#EAEAEA]">
       <div className="container mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
+        <div className="grid grid-cols-3 items-center">
           {/* Logo */}
           <div className="flex items-center">
-            <span 
-              className="text-2xl font-bold text-primary cursor-pointer hover:opacity-80 transition-opacity"
-              onClick={() => scrollToSection('home')}
+            <Link
+              to="/"
+              className="text-2xl font-bold text-foreground tracking-tight"
             >
               BYTECUBE
-            </span>
+            </Link>
           </div>
 
           {/* Navigation Links */}
-          <div className="hidden md:flex items-center space-x-8">
-            <button 
-              onClick={() => scrollToSection('home')}
-              className="text-foreground hover:text-primary transition-colors font-medium"
-            >
-              Home
-            </button>
-            <button 
-              onClick={() => scrollToSection('services')}
-              className="text-foreground hover:text-primary transition-colors font-medium"
-            >
-              Services
-            </button>
-            <button 
-              onClick={() => scrollToSection('products')}
-              className="text-foreground hover:text-primary transition-colors font-medium"
-            >
-              Product
-            </button>
-            <button 
-              onClick={() => scrollToSection('about')}
-              className="text-foreground hover:text-primary transition-colors font-medium"
-            >
-              About
-            </button>
-            <button 
-              onClick={() => scrollToSection('contact')}
-              className="text-foreground hover:text-primary transition-colors font-medium"
-            >
-              Contact
-            </button>
+          <div className="hidden md:flex items-center justify-center gap-8">
+            {NAV_ITEMS.map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                className={`font-medium text-foreground hover:underline ${isActive(item.to) ? "underline" : ""}`}
+              >
+                {item.label}
+              </Link>
+            ))}
           </div>
 
           {/* CTA Button */}
-          <Button 
-            onClick={() => scrollToSection('contact')}
-            className="bg-primary text-primary-foreground hover:bg-primary/90 font-medium"
-          >
-            Request a Demo
-          </Button>
+          <div className="flex justify-end">
+            <Link to="/contact">
+              <Button className="font-medium">
+                Request a Demo
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
     </nav>

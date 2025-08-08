@@ -8,53 +8,46 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* BYTECUBE Design System */
-    --background: 44 9% 96%; /* #F5F4F1 - Off-White Background */
-    --foreground: 0 0% 7%; /* #111111 - Primary Dark Text */
+    /* Minimal, clean aesthetic similar to Anthropic */
+    --background: 0 0% 100%; /* White */
+    --foreground: 0 0% 7%; /* Near-black text (#111111) */
 
-    --card: 43 8% 85%; /* #D9D7D2 - Card Background */
-    --card-foreground: 0 0% 7%; /* #111111 */
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 7%;
 
-    --section-background: 42 11% 91%; /* #EAE8E2 - Light Beige Section */
+    --section-background: 210 20% 98%; /* Very light gray section */
     
-    --popover: 44 9% 96%;
+    --popover: 0 0% 100%;
     --popover-foreground: 0 0% 7%;
 
-    --primary: 0 0% 7%; /* #111111 - Primary Dark */
-    --primary-foreground: 0 0% 100%; /* #FFFFFF - Light Text */
+    --primary: 0 0% 0%; /* Solid black (#000000) */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 42 11% 91%; /* #EAE8E2 */
+    --secondary: 0 0% 96%;
     --secondary-foreground: 0 0% 7%;
 
-    --muted: 43 8% 85%;
-    --muted-foreground: 0 0% 40%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 33%; /* ~#555555 */
 
-    --accent: 16 54% 59%; /* #D9785A - Muted Terracotta Accent */
+    --accent: 210 10% 40%; /* Subtle slate */
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 43 8% 85%;
-    --input: 43 8% 85%;
+    --border: 0 0% 92%; /* Light gray borders (#EAEAEA) */
+    --input: 0 0% 90%;
     --ring: 0 0% 7%;
 
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -103,6 +96,18 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
   }
+
+  a {
+    @apply text-foreground font-medium;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
+/* Global utility: consistent max-width container */
+.container {
+  max-width: 1140px;
 }
