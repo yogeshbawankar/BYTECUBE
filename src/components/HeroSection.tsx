@@ -10,32 +10,43 @@ const HeroSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Text Content */}
           <div className="space-y-8">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-tight">
-              Intelligent Finance, Powered by AI
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-foreground leading-tight tracking-tight font-serifhead">
+              Intelligent Finance, <span className="text-[color:hsl(var(--accent))]">Thoughtfully</span> Applied
             </h1>
             
-            <p className="text-lg md:text-xl text-foreground leading-relaxed max-w-2xl">
+            <p className="text-lg md:text-xl text-foreground/90 leading-relaxed max-w-2xl">
               BYTECUBE delivers cutting-edge AI solutions that empower financial institutions 
               to optimize operations, manage risk, and drive growth.
             </p>
             
-            <Button 
-              asChild
-              size="lg"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 font-medium text-lg px-8 py-6"
-            >
-              <Link to="/services">Explore Our Services</Link>
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button asChild size="lg" className="font-manrope font-semibold text-base px-8 py-6">
+                <Link to="/contact">Request a Demo</Link>
+              </Button>
+              <Button asChild variant="outline" size="lg" className="font-manrope font-semibold text-base px-8 py-6">
+                <Link to="/services">Explore Our Services</Link>
+              </Button>
+            </div>
           </div>
 
           {/* Right Column - Abstract Graphic */}
           <div className="flex justify-center lg:justify-end">
             {/* Reserve space to avoid CLS using a fixed aspect ratio */}
-            <div className="relative w-full aspect-[16/9] max-w-3xl">
+            <div className="relative w-full aspect-[16/9] max-w-3xl overflow-hidden rounded-xl border border-[#EAEAEA]">
+              <video
+                className="absolute inset-0 h-full w-full object-cover"
+                autoPlay
+                muted
+                loop
+                playsInline
+                poster={heroGraphic}
+              >
+                {/* If no video is provided, fallback to the poster image */}
+              </video>
               <img
                 src={heroGraphic}
-                alt="Abstract AI network visualization"
-                className="absolute inset-0 h-full w-full object-contain"
+                alt="Abstract AI visualization"
+                className="absolute inset-0 h-full w-full object-cover"
                 loading="eager"
                 decoding="async"
                 fetchPriority={"high" as unknown as React.ImgHTMLAttributes<HTMLImageElement>["fetchPriority"]}

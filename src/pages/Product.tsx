@@ -3,9 +3,9 @@ import type { LucideIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Feature = ({ icon: Icon, title, text }: { icon: LucideIcon; title: string; text: string }) => (
-  <div className="border border-[#EAEAEA] rounded-lg p-6 bg-white">
-    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-      <Icon className="w-6 h-6 text-primary" aria-hidden="true" />
+  <div className="border border-[#EAEAEA] rounded-lg p-6 bg-white transition-all hover:shadow-md hover:-translate-y-1">
+    <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mb-4">
+      <Icon className="w-6 h-6 text-accent" aria-hidden="true" />
     </div>
     <div className="text-lg font-semibold mb-1">{title}</div>
     <div className="text-[#555555]">{text}</div>
@@ -17,7 +17,7 @@ const Product = () => {
     <div className="min-h-screen">
       <section className="pt-24 pb-14 bg-section-bg text-center">
         <div className="container mx-auto px-6">
-          <h1 className="text-4xl font-bold text-foreground mb-2">ByteCube Nexus™</h1>
+          <h1 className="text-4xl font-bold text-foreground mb-2 font-serifhead">ByteCube Nexus™</h1>
           <p className="text-[#555555]">The Central Nervous System for Your Financial Operations.</p>
         </div>
       </section>
@@ -54,7 +54,7 @@ const Product = () => {
       <section className="py-16 text-center">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-bold mb-4">Ready to Revolutionize Your Finances?</h2>
-          <Button className="px-8 py-6 text-base">Request a Demo</Button>
+          <Button className="px-8 py-6 text-base font-semibold">Request a Demo</Button>
         </div>
       </section>
     </div>

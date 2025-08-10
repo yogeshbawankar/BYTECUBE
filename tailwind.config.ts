@@ -17,11 +17,47 @@ export default {
 				'2xl': '1400px'
 			}
 		},
-		extend: {
-			fontFamily: {
-				'inter': ['Inter', 'sans-serif'],
-				'sans': ['Inter', 'sans-serif'],
-			},
+    extend: {
+      fontFamily: {
+        manrope: [
+          'Manrope',
+          'Inter',
+          'system-ui',
+          '-apple-system',
+          'Segoe UI',
+          'Roboto',
+          'Helvetica Neue',
+          'Arial',
+          'Noto Sans',
+          'sans-serif'
+        ],
+        serifhead: [
+          'ITC Clearface',
+          'Clearface ITC Std',
+          'Source Serif 4',
+          'Georgia',
+          'serif'
+        ],
+        logo: [
+          'Space Grotesk',
+          'Syne',
+          'Inter',
+          'system-ui',
+          'sans-serif'
+        ],
+        sans: [
+          'Manrope',
+          'Inter',
+          'system-ui',
+          '-apple-system',
+          'Segoe UI',
+          'Roboto',
+          'Helvetica Neue',
+          'Arial',
+          'Noto Sans',
+          'sans-serif'
+        ],
+      },
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',

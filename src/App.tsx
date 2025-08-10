@@ -9,6 +9,8 @@ const Index = lazy(() => import("./pages/Index"));
 const About = lazy(() => import("./pages/About"));
 const Services = lazy(() => import("./pages/Services"));
 const Product = lazy(() => import("./pages/Product"));
+const ProductInsight = lazy(() => import("./pages/ProductInsight"));
+const ProductAutomate = lazy(() => import("./pages/ProductAutomate"));
 const Contact = lazy(() => import("./pages/Contact"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
@@ -25,6 +27,8 @@ const App = () => (
               <Route index element={<Index />} />
               <Route path="services" element={<Services />} />
               <Route path="product" element={<Product />} />
+              <Route path="product/insight" element={<ProductInsight />} />
+              <Route path="product/automate" element={<ProductAutomate />} />
               <Route path="contact" element={<Contact />} />
               <Route path="about" element={<About />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

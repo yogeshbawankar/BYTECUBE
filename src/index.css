@@ -8,28 +8,29 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Minimal, clean aesthetic similar to Anthropic */
-    --background: 0 0% 100%; /* White */
-    --foreground: 0 0% 7%; /* Near-black text (#111111) */
+    /* Anthropic-inspired warm, minimalist palette */
+    --background: 30 50% 96%; /* Warm Off-White #F9F5F1 */
+    --foreground: 0 0% 10%; /* Charcoal Black #191919 */
 
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 7%;
+    --card: 30 20% 90%; /* Muted Taupe #EAE5E0 */
+    --card-foreground: 0 0% 10%;
 
-    --section-background: 210 20% 98%; /* Very light gray section */
+    --section-background: 30 35% 94%; /* Light variant of taupe for subtle sections */
     
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 7%;
+    --popover: 30 50% 96%;
+    --popover-foreground: 0 0% 10%;
 
-    --primary: 0 0% 0%; /* Solid black (#000000) */
+    --primary: 0 0% 10%; /* Charcoal Black for primary UI */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 7%;
+    --secondary: 30 35% 94%;
+    --secondary-foreground: 0 0% 10%;
 
-    --muted: 0 0% 96%;
+    --muted: 30 35% 94%;
     --muted-foreground: 0 0% 33%; /* ~#555555 */
 
-    --accent: 210 10% 40%; /* Subtle slate */
+    /* Terracotta accent, used sparingly for highlights */
+    --accent: 11 60% 64%; /* #D97E6A */
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
@@ -96,11 +97,14 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-manrope;
+    line-height: 1.5; /* Optimal readability */
+    font-size: 17px; /* Slight global bump for better readability */
   }
 
   a {
-    @apply text-foreground font-medium;
+    @apply font-medium;
+    color: hsl(var(--foreground));
   }
   a:hover {
     text-decoration: underline;

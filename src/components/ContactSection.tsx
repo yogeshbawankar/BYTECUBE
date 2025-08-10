@@ -45,17 +45,25 @@ const ContactSection = () => {
   return (
     <section id="contact" className="py-20">
       <div className="container mx-auto px-6">
-        <div className="max-w-2xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-4">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-10">
+          <div className="md:col-span-2 space-y-4">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground font-serifhead">
               Get in Touch
             </h2>
+            <p className="text-muted-foreground">
+              Let's talk. Fill out the form, and a member of our solutions team will be in touch within 24 hours.
+            </p>
+            <div className="flex items-center gap-6 opacity-80">
+              <img src="/placeholder.svg" alt="Client 1" className="h-8 w-auto grayscale" />
+              <img src="/placeholder.svg" alt="Client 2" className="h-8 w-auto grayscale" />
+              <img src="/placeholder.svg" alt="Client 3" className="h-8 w-auto grayscale" />
+            </div>
           </div>
 
-          <Card className="bg-card border-0 shadow-lg">
+          <Card className="md:col-span-3 bg-card border-0 shadow-lg">
             <CardHeader>
-              <CardTitle className="text-2xl font-semibold text-card-foreground text-center">
-                Contact Us
+              <CardTitle className="text-2xl font-semibold text-card-foreground text-left">
+                {/* Removed redundant sub-header */}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -104,12 +112,8 @@ const ContactSection = () => {
                   />
                 </div>
 
-                <Button 
-                  type="submit"
-                  variant="outline"
-                  className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-colors font-medium"
-                >
-                  Send Message
+                <Button type="submit" size="lg" className="w-full font-semibold">
+                  Request My Demo
                 </Button>
               </form>
             </CardContent>
