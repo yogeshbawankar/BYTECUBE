@@ -24,7 +24,7 @@ const Navbar = () => {
                 key={item.to}
                 to={item.to}
                 end={item.to === "/"}
-                className={() => `font-normal no-underline text-[#191919] visited:text-[#191919] flex items-center`}
+                className={({ isActive }) => `font-normal text-[#191919] visited:text-[#191919] flex items-center ${isActive ? "underline decoration-[#191919] underline-offset-8" : "no-underline"}`}
               >
                 <span>{item.label}</span>
               </NavLink>
