@@ -123,3 +123,21 @@ All colors MUST be HSL.
 }
 
 /* Removed custom .container to avoid overriding Tailwind's responsive container */
+
+@layer components {
+  .eyebrow {
+    @apply text-xs md:text-sm uppercase tracking-widest text-muted-foreground;
+  }
+
+  .lede {
+    @apply text-xl md:text-2xl text-foreground/80 leading-relaxed;
+  }
+
+  .quiet-card {
+    @apply rounded-xl border border-border bg-card;
+  }
+
+  .soft-divider {
+    @apply h-px bg-border/80 w-full;
+  }
+}
