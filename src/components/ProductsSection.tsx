@@ -48,7 +48,7 @@ const ProductsSection = () => {
                 </CardDescription>
                 <div>
                   <Button asChild size="lg" className="font-semibold">
-                    <Link to={product.to}>Learn More</Link>
+                    <Link to={product.to} className="visited:text-white">Learn More</Link>
                   </Button>
                 </div>
               </CardContent>

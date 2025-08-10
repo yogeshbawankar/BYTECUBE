@@ -12,21 +12,18 @@ const HeroSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Text Content */}
           <div className="space-y-8">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-foreground leading-tight tracking-tight font-serifhead">
-              Intelligent Finance, <span className="text-[color:hsl(var(--accent))]">Thoughtfully</span> Applied
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#191919] leading-tight tracking-tight font-serifhead">
+              Intelligent Finance, <span className="text-[#D97E6A]">Thoughtfully</span> Applied
             </h1>
             
-            <p className="text-lg md:text-xl text-foreground/90 leading-relaxed max-w-2xl">
+            <p className="text-lg md:text-xl text-[#191919]/90 leading-relaxed max-w-2xl">
               BYTECUBE delivers cutting-edge AI solutions that empower financial institutions 
               to optimize operations, manage risk, and drive growth.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button asChild size="lg" className="font-manrope font-semibold text-base px-8 py-6">
-                <Link to="/contact">Request a Demo</Link>
-              </Button>
               <Button asChild variant="outline" size="lg" className="font-manrope font-semibold text-base px-8 py-6">
-                <Link to="/services">Explore Our Services</Link>
+                <Link to="/services" className="no-underline text-[#191919] visited:text-[#191919]">Explore Our Services</Link>
               </Button>
             </div>
           </div>

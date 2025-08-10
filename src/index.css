@@ -104,21 +104,20 @@ All colors MUST be HSL.
 
   a {
     @apply font-medium;
-    color: hsl(var(--accent));
+    color: currentColor; /* inherit text color (e.g., black in navbar, white on dark buttons) */
     text-decoration-line: underline;
     text-decoration-thickness: 0.08em; /* subtle by default */
     text-underline-offset: 0.15em; /* improves readability */
-    text-decoration-color: hsl(var(--accent) / 0.7);
+    text-decoration-color: currentColor; /* match current text color */
   }
 
   a:hover,
   a:focus-visible {
     text-decoration-thickness: 0.12em; /* slightly stronger on hover/focus */
-    text-decoration-color: hsl(var(--accent));
+    text-decoration-color: currentColor;
   }
 
   a:visited {
-    color: hsl(var(--accent) / 0.85); /* clear but slightly subdued */
     text-decoration-style: dotted; /* distinct visited feedback */
   }
 }
