@@ -99,7 +99,7 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground font-manrope;
     line-height: 1.5; /* Optimal readability */
-    font-size: 18px; /* Increased global base size for better visibility */
+    font-size: 17px; /* Slight global bump for better readability */
   }
 
   a {
