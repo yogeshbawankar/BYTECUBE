@@ -120,8 +120,8 @@ const About = () => {
             </h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {founders.map((founder, index) => (
-                <div key={index} className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 hover:border-primary/30 transition-all duration-300 group">
+              {founders.map((founder) => (
+                <div key={`${founder.name}-${founder.role}`} className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 hover:border-primary/30 transition-all duration-300 group">
                   {/* Founder Image Placeholder */}
                   <div className="w-40 h-40 mx-auto mb-6 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 border-2 border-primary/30 flex items-center justify-center">
                     <div className="text-primary/60 text-center">
@@ -213,8 +213,8 @@ const About = () => {
             </h2>
             
             <div className="space-y-8">
-              {milestones.map((milestone, index) => (
-                <div key={index} className="flex items-start gap-6">
+              {milestones.map((milestone) => (
+                <div key={`${milestone.year}-${milestone.title}`} className="flex items-start gap-6">
                   <div className="flex-shrink-0 w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center">
                     <span className="text-xl font-bold text-primary">{milestone.year}</span>
                   </div>

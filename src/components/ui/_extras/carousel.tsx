@@ -7,7 +7,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 
-type CarouselApi = UseEmblaCarouselType[1]
+type CarouselApi = NonNullable<UseEmblaCarouselType[1]>
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>
 type CarouselOptions = UseCarouselParameters[0]
 type CarouselPlugin = UseCarouselParameters[1]
@@ -21,7 +21,7 @@ type CarouselProps = {
 
 type CarouselContextProps = {
   carouselRef: ReturnType<typeof useEmblaCarousel>[0]
-  api: ReturnType<typeof useEmblaCarousel>[1]
+  api: CarouselApi
   scrollPrev: () => void
   scrollNext: () => void
   canScrollPrev: boolean
@@ -85,6 +85,22 @@ const Carousel = React.forwardRef<
 
     const handleKeyDown = React.useCallback(
       (event: React.KeyboardEvent<HTMLDivElement>) => {
+        // Ignore if a modifier key is pressed
+        if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) {
+          return
+        }
+
+        // Ignore if the event originates from an interactive element
+        const target = event.target as HTMLElement | null
+        if (target) {
+          const interactiveElement = target.closest(
+            'input, textarea, select, button, [contenteditable=""], [contenteditable="true"], [role="textbox"], [role="combobox"], [role="listbox"]'
+          )
+          if (interactiveElement) {
+            return
+          }
+        }
+
         if (orientation === "horizontal") {
           if (event.key === "ArrowLeft") {
             event.preventDefault()
@@ -145,7 +161,7 @@ const Carousel = React.forwardRef<
       >
         <div
           ref={ref}
-          onKeyDownCapture={handleKeyDown}
+          onKeyDown={handleKeyDown}
           className={cn("relative", className)}
           role="region"
           aria-roledescription="carousel"

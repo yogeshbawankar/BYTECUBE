@@ -5,10 +5,20 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 
+type FormState = {
+  name: string;
+  email: string;
+  company: string;
+  message: string;
+};
+
 const Contact = () => {
-  const [form, setForm] = useState({ name: '', email: '', company: '', message: '' });
-  const update = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-    setForm((previous) => ({ ...previous, [e.target.name]: e.target.value }));
+  const [form, setForm] = useState<FormState>({ name: '', email: '', company: '', message: '' });
+  const update = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    const key = name as keyof FormState;
+    setForm((previous) => ({ ...previous, [key]: value }));
+  };
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
   };

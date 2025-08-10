@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import { OTPInput, OTPInputContext } from "input-otp"
 import { Dot } from "lucide-react"
@@ -35,9 +37,12 @@ const InputOTPSlot = React.forwardRef<
   const inputOTPContext = React.useContext(OTPInputContext)
 
   if (!inputOTPContext) {
-    throw new Error(
-      "InputOTPSlot must be used within an OTPInput provider (OTPInputContext is undefined)."
-    )
+    if (process.env.NODE_ENV !== "production") {
+      console.error(
+        "InputOTPSlot must be used within an OTPInput provider (OTPInputContext is undefined)."
+      )
+    }
+    return null
   }
 
   const { slots } = inputOTPContext as { slots: Array<any> }

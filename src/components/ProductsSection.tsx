@@ -31,7 +31,7 @@ const ProductsSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {products.map((product, index) => (
             <Card
-              key={index}
+              key={product.title}
               className="bg-card border-0 shadow-md hover:shadow-xl transition-all duration-200 p-6 flex flex-col justify-between"
             >
               <CardHeader className="flex flex-row items-center gap-4">

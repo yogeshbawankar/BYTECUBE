@@ -177,7 +177,7 @@ You can deploy via the Vercel Dashboard or CLI.
 1) If deploying to a repository subpath, set Vite `base` (see above).
 
 2) Add SPA fallback by providing a `404.html` in the published output. One simple approach is to copy `index.html` to `404.html` after build:
-```json
+```jsonc
 // package.json (scripts)
 {
   "scripts": {
@@ -284,9 +284,9 @@ This software is proprietary and confidential. Use of this software is governed 
 > import './index.css';
 >
 > createRoot(document.getElementById('root')!).render(
->   <BrowserRouter basename="/your-repo/"> {/* match Vite base! */}
+>   <BrowserRouter basename="/your-repo"> {/* match Vite base, but omit trailing slash! */}
 >     <App />
 >   </BrowserRouter>
 > );
 > ```
-> Replace `/your-repo/` with your actual subpath (e.g. `/bytecube/`).
+> **Important:** Use a trailing slash for Vite's `base` (e.g. `/your-repo/`), but **do not** use a trailing slash for `BrowserRouter`'s `basename` (use `/your-repo`). Mixing these up can cause routing issues, such as double slashes or broken links.

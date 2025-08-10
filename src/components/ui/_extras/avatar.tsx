@@ -18,13 +18,26 @@ const Avatar = React.forwardRef<
 ))
 Avatar.displayName = AvatarPrimitive.Root.displayName
 
+// AvatarImageProps: Omit original alt, require alt: string
+
+type AvatarImageProps = Omit<
+  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>,
+  "alt"
+> & {
+  alt: string;
+};
+
 const AvatarImage = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Image>,
-  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>
->(({ className, ...props }, ref) => (
+  AvatarImageProps
+>(({ className, alt, ...props }, ref) => (
   <AvatarPrimitive.Image
     ref={ref}
-    className={cn("aspect-square h-full w-full", className)}
+    alt={alt}
+    decoding="async"
+    loading="lazy"
+    draggable="false"
+    className={cn("aspect-square h-full w-full object-cover", className)}
     {...props}
   />
 ))

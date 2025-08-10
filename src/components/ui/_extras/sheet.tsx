@@ -79,17 +79,17 @@ const SheetContent = React.forwardRef<
           dimensionClass = "w-96"
           break
         case "xl":
-          dimensionClass = "w-[32rem]"
+          dimensionClass = "w-[32rem] max-w-none sm:max-w-none"
           break
         case "full":
-          dimensionClass = "w-screen max-w-screen"
+          dimensionClass = "w-screen max-w-none sm:max-w-none"
           break
       }
     } else {
       // top / bottom
       switch (size) {
         case "content":
-          dimensionClass = "h-auto max-h-fit w-full"
+          dimensionClass = "h-auto max-h-screen w-full"
           break
         case "sm":
           dimensionClass = "h-40 w-full"

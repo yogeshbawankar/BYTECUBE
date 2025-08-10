@@ -6,7 +6,7 @@ export type Founder = {
   bio?: string;
 };
 
-export const founders: Founder[] = [
+export const founders = [
   {
     name: "Founder Name 1",
     role: "CEO & Co-Founder",
@@ -28,6 +28,6 @@ export const founders: Founder[] = [
     image: "/placeholder-founder3.jpg",
     bio: "Leading AI research and development with focus on explainable AI and ethical machine learning.",
   },
-];
+] as const satisfies Founder[];
 
 

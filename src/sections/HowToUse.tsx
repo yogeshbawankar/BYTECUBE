@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 
 type UseCase = {
   id: string;
   title: string;
   description: string;
-  visual: React.ReactNode;
+  visual: ReactNode;
 };
 
 const useCases: UseCase[] = [
@@ -49,21 +49,25 @@ const HowToUse = () => {
         <div className="rounded-[28px] md:rounded-[32px] p-6 md:p-10 bg-card">
           <div className="grid grid-cols-1 md:grid-cols-5 gap-8 items-start">
             <div className="md:col-span-2">
-              <div className="space-y-2">
+              <div className="space-y-2" role="tablist">
                 {useCases.map((uc) => {
                   const isActive = uc.id === active.id;
                   return (
                     <button
                       key={uc.id}
+                      id={`tab-${uc.id}`}
+                      role="tab"
+                      aria-selected={isActive}
+                      aria-controls={`panel-${uc.id}`}
+                      type="button"
                       onClick={() => setActive(uc)}
                       className={`w-full text-left px-4 py-3 rounded-lg border transition-colors ${
                         isActive ? "border-foreground/40 font-semibold" : "border-black/10 hover:border-foreground/30"
                       }`}
-                      aria-expanded={isActive}
                     >
                       <div className="flex items-center justify-between">
                         <span>{uc.title}</span>
-                        <span aria-hidden>{isActive ? "^" : "v"}</span>
+                        <span aria-hidden="true">{isActive ? "^" : "v"}</span>
                       </div>
                       <div className="text-sm text-muted-foreground mt-1">{uc.description}</div>
                     </button>
@@ -71,7 +75,12 @@ const HowToUse = () => {
                 })}
               </div>
             </div>
-            <div className="md:col-span-3">
+            <div
+              className="md:col-span-3"
+              role="tabpanel"
+              id={`panel-${active.id}`}
+              aria-labelledby={`tab-${active.id}`}
+            >
               {active.visual}
             </div>
           </div>

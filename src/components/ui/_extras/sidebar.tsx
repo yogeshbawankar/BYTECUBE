@@ -1,3 +1,5 @@
+'use client'
+
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { VariantProps, cva } from "class-variance-authority"
@@ -73,7 +75,25 @@ const SidebarProvider = React.forwardRef<
 
     // This is the internal state of the sidebar.
     // We use openProp and setOpenProp for control from outside the component.
-    const [_open, _setOpen] = React.useState(defaultOpen)
+    // Lazily read the persisted cookie value on the client to avoid hydration mismatches.
+    const [_open, _setOpen] = React.useState<boolean>(() => {
+      if (typeof window === "undefined" || typeof document === "undefined") {
+        return defaultOpen
+      }
+      try {
+        const cookieString = document.cookie ?? ""
+        const cookiePair = cookieString
+          .split("; ")
+          .find((entry) => entry.startsWith(`${SIDEBAR_COOKIE_NAME}=`))
+        if (!cookiePair) return defaultOpen
+        const rawValue = decodeURIComponent(cookiePair.split("=")[1] || "")
+        if (rawValue === "true") return true
+        if (rawValue === "false") return false
+        return defaultOpen
+      } catch {
+        return defaultOpen
+      }
+    })
     const open = openProp ?? _open
     const setOpen = React.useCallback(
       (value: boolean | ((value: boolean) => boolean)) => {
@@ -100,7 +120,10 @@ const SidebarProvider = React.forwardRef<
           cookieAttributes.push("Secure")
         }
 
-        document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; ${cookieAttributes.join("; ")}`
+        if (typeof document !== "undefined") {
+          const encodedOpenState = encodeURIComponent(String(openState))
+          document.cookie = `${SIDEBAR_COOKIE_NAME}=${encodedOpenState}; ${cookieAttributes.join("; ")}`
+        }
       },
       [setOpenProp, open]
     )
@@ -115,8 +138,19 @@ const SidebarProvider = React.forwardRef<
     // Adds a keyboard shortcut to toggle the sidebar.
     React.useEffect(() => {
       const handleKeyDown = (event: KeyboardEvent) => {
+        const target = event.target as HTMLElement | null
+        if (target) {
+          const tagName = target.tagName?.toLowerCase()
+          const isEditable =
+            target.isContentEditable || tagName === "input" || tagName === "textarea"
+          if (isEditable) {
+            return
+          }
+        }
+
+        const pressedKey = (event.key || "").toLowerCase()
         if (
-          event.key === SIDEBAR_KEYBOARD_SHORTCUT &&
+          pressedKey === SIDEBAR_KEYBOARD_SHORTCUT &&
           (event.metaKey || event.ctrlKey)
         ) {
           event.preventDefault()
@@ -287,6 +321,7 @@ const SidebarTrigger = React.forwardRef<
       data-sidebar="trigger"
       variant="ghost"
       size="icon"
+        type="button"
       className={cn("h-7 w-7", className)}
       onClick={(event) => {
         onClick?.(event)
@@ -310,6 +345,7 @@ const SidebarRail = React.forwardRef<
   return (
     <button
       ref={ref}
+      type="button"
       data-sidebar="rail"
       aria-label="Toggle Sidebar"
       onClick={toggleSidebar}
@@ -454,7 +490,7 @@ const SidebarGroupLabel = React.forwardRef<
       ref={ref}
       data-sidebar="group-label"
       className={cn(
-        "duration-200 flex h-8 shrink-0 items-center rounded-md px-2 text-xs font-medium text-sidebar-foreground/70 outline-none ring-sidebar-ring transition-[margin,opa] ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
+        "duration-200 flex h-8 shrink-0 items-center rounded-md px-2 text-xs font-medium text-sidebar-foreground/70 outline-none ring-sidebar-ring transition-[margin,opacity] ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
         "group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0",
         className
       )}
@@ -471,18 +507,27 @@ const SidebarGroupAction = React.forwardRef<
   const Comp = asChild ? Slot : "button"
 
   return (
-    <Comp
-      ref={ref}
-      data-sidebar="group-action"
-      className={cn(
-        "absolute right-3 top-3.5 flex aspect-square w-5 items-center justify-center rounded-md p-0 text-sidebar-foreground outline-none ring-sidebar-ring transition-transform hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
-        // Increases the hit area of the button on mobile.
-        "after:absolute after:-inset-2 after:md:hidden",
-        "group-data-[collapsible=icon]:hidden",
-        className
-      )}
-      {...props}
-    />
+    (() => {
+      const { type, ...restProps } = props as React.ComponentProps<"button">
+      const elementProps = asChild
+        ? restProps
+        : { type: type ?? "button", ...restProps }
+
+      return (
+        <Comp
+          ref={ref}
+          data-sidebar="group-action"
+          className={cn(
+            "absolute right-3 top-3.5 flex aspect-square w-5 items-center justify-center rounded-md p-0 text-sidebar-foreground outline-none ring-sidebar-ring transition-transform hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
+            // Increases the hit area of the button on mobile.
+            "after:absolute after:-inset-2 after:md:hidden",
+            "group-data-[collapsible=icon]:hidden",
+            className
+          )}
+          {...elementProps}
+        />
+      )
+    })()
   )
 })
 SidebarGroupAction.displayName = "SidebarGroupAction"
@@ -571,16 +616,23 @@ const SidebarMenuButton = React.forwardRef<
     const Comp = asChild ? Slot : "button"
     const { isMobile, state } = useSidebar()
 
-    const button = (
-      <Comp
-        ref={ref}
-        data-sidebar="menu-button"
-        data-size={size}
-        data-active={isActive}
-        className={cn(sidebarMenuButtonVariants({ variant, size }), className)}
-        {...props}
-      />
-    )
+    const button = (() => {
+      const { type, ...restProps } = props as React.ComponentProps<"button">
+      const elementProps = asChild
+        ? restProps
+        : { type: type ?? "button", ...restProps }
+
+      return (
+        <Comp
+          ref={ref}
+          data-sidebar="menu-button"
+          data-size={size}
+          data-active={isActive}
+          className={cn(sidebarMenuButtonVariants({ variant, size }), className)}
+          {...elementProps}
+        />
+      )
+    })()
 
     if (!tooltip) {
       return button
@@ -617,23 +669,30 @@ const SidebarMenuAction = React.forwardRef<
   const Comp = asChild ? Slot : "button"
 
   return (
-    <Comp
-      ref={ref}
-      data-sidebar="menu-action"
-      className={cn(
-        "absolute right-1 top-1.5 flex aspect-square w-5 items-center justify-center rounded-md p-0 text-sidebar-foreground outline-none ring-sidebar-ring transition-transform hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 peer-hover/menu-button:text-sidebar-accent-foreground [&>svg]:size-4 [&>svg]:shrink-0",
-        // Increases the hit area of the button on mobile.
-        "after:absolute after:-inset-2 after:md:hidden",
-        "peer-data-[size=sm]/menu-button:top-1",
-        "peer-data-[size=default]/menu-button:top-1.5",
-        "peer-data-[size=lg]/menu-button:top-2.5",
-        "group-data-[collapsible=icon]:hidden",
-        showOnHover &&
-          "group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-[state=open]:opacity-100 peer-data-[active=true]/menu-button:text-sidebar-accent-foreground md:opacity-0",
-        className
-      )}
-      {...props}
-    />
+    (() => {
+      const { type, ...restProps } = props as React.ComponentProps<"button">
+      const elementProps = asChild ? restProps : { type: type ?? "button", ...restProps }
+
+      return (
+        <Comp
+          ref={ref}
+          data-sidebar="menu-action"
+          className={cn(
+            "absolute right-1 top-1.5 flex aspect-square w-5 items-center justify-center rounded-md p-0 text-sidebar-foreground outline-none ring-sidebar-ring transition-transform hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 peer-hover/menu-button:text-sidebar-accent-foreground [&>svg]:size-4 [&>svg]:shrink-0",
+            // Increases the hit area of the button on mobile.
+            "after:absolute after:-inset-2 after:md:hidden",
+            "peer-data-[size=sm]/menu-button:top-1",
+            "peer-data-[size=default]/menu-button:top-1.5",
+            "peer-data-[size=lg]/menu-button:top-2.5",
+            "group-data-[collapsible=icon]:hidden",
+            showOnHover &&
+              "group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-[state=open]:opacity-100 peer-data-[active=true]/menu-button:text-sidebar-accent-foreground md:opacity-0",
+            className
+          )}
+          {...elementProps}
+        />
+      )
+    })()
   )
 })
 SidebarMenuAction.displayName = "SidebarMenuAction"

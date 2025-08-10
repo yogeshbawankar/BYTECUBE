@@ -54,17 +54,15 @@ const ContactSection = () => {
               Let's talk. Fill out the form, and a member of our solutions team will be in touch within 24 hours.
             </p>
             <div className="flex items-center gap-6 opacity-80">
-              <img src="/placeholder.svg" alt="Client 1" className="h-8 w-auto grayscale" />
-              <img src="/placeholder.svg" alt="Client 2" className="h-8 w-auto grayscale" />
-              <img src="/placeholder.svg" alt="Client 3" className="h-8 w-auto grayscale" />
+              <img src="/placeholder.svg" alt="Client 1 Logo" className="h-8 w-auto grayscale" loading="lazy" decoding="async" />
+              <img src="/placeholder.svg" alt="Client 2 Logo" className="h-8 w-auto grayscale" loading="lazy" decoding="async" />
+              <img src="/placeholder.svg" alt="Client 3 Logo" className="h-8 w-auto grayscale" loading="lazy" decoding="async" />
             </div>
           </div>
 
           <Card className="md:col-span-3 bg-card border-0 shadow-lg">
             <CardHeader>
-              <CardTitle className="text-2xl font-semibold text-card-foreground text-left">
-                {/* Removed redundant sub-header */}
-              </CardTitle>
+              {/* Removed empty CardTitle for accessibility */}
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6">

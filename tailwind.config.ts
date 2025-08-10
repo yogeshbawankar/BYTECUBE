@@ -29,7 +29,10 @@ export default {
           'Helvetica Neue',
           'Arial',
           'Noto Sans',
-          'sans-serif'
+          'sans-serif',
+          'Apple Color Emoji',
+          'Segoe UI Emoji',
+          'Segoe UI Symbol'
         ],
         serifhead: [
           'ITC Clearface',
@@ -55,7 +58,10 @@ export default {
           'Helvetica Neue',
           'Arial',
           'Noto Sans',
-          'sans-serif'
+          'sans-serif',
+          'Apple Color Emoji',
+          'Segoe UI Emoji',
+          'Segoe UI Symbol'
         ],
       },
 			colors: {

@@ -13,8 +13,40 @@ const Feature = ({ icon: Icon, title, text }: { icon: LucideIcon; title: string;
 );
 
 const Product = () => {
+  const features: Array<{ icon: LucideIcon; title: string; text: string }> = [
+    {
+      icon: BarChart3,
+      title: 'Real-time Analytics',
+      text: 'Stream and analyze tick-to-trade data with millisecond latency.',
+    },
+    {
+      icon: Shield,
+      title: 'Model Governance',
+      text: 'Versioning, approvals, and drift monitoring built-in.',
+    },
+    {
+      icon: Lock,
+      title: 'Secure API Integration',
+      text: 'SOC2-ready APIs with fine-grained permissions.',
+    },
+    {
+      icon: Cloud,
+      title: 'Scalable Cloud',
+      text: 'Elastically scale compute to meet market volatility.',
+    },
+    {
+      icon: Cpu,
+      title: 'On-Prem Ready',
+      text: 'Deploy into private VPCs and on-prem clusters.',
+    },
+    {
+      icon: Zap,
+      title: 'Automation',
+      text: 'Trigger workflows and alerts from KPIs and thresholds.',
+    },
+  ];
   return (
-    <div className="min-h-screen">
+    <main className="min-h-screen">
       <section className="pt-24 pb-14 bg-section-bg text-center">
         <div className="container mx-auto px-6">
           <h1 className="text-4xl font-bold text-foreground mb-2 font-serifhead">ByteCube Nexus™</h1>
@@ -24,12 +56,9 @@ const Product = () => {
 
       <section className="py-16">
         <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <Feature icon={BarChart3} title="Real-time Analytics" text="Stream and analyze tick-to-trade data with millisecond latency." />
-          <Feature icon={Shield} title="Model Governance" text="Versioning, approvals, and drift monitoring built-in." />
-          <Feature icon={Lock} title="Secure API Integration" text="SOC2-ready APIs with fine-grained permissions." />
-          <Feature icon={Cloud} title="Scalable Cloud" text="Elastically scale compute to meet market volatility." />
-          <Feature icon={Cpu} title="On-Prem Ready" text="Deploy into private VPCs and on-prem clusters." />
-          <Feature icon={Zap} title="Automation" text="Trigger workflows and alerts from KPIs and thresholds." />
+          {features.map(({ icon, title, text }) => (
+            <Feature key={title} icon={icon} title={title} text={text} />
+          ))}
         </div>
       </section>
 
@@ -57,7 +86,7 @@ const Product = () => {
           <Button className="px-8 py-6 text-base font-semibold">Request a Demo</Button>
         </div>
       </section>
-    </div>
+    </main>
   );
 };
 

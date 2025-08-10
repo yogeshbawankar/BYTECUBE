@@ -5,6 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BYTECUBE - Intelligent Finance</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <meta name="description" content="BYTECUBE delivers AI-powered financial insights and automation. Learn how our intelligent finance solutions drive smarter operations and results." />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://bytecube.ai/foundation" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/placeholder.svg" type="image/svg+xml" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="BYTECUBE — Intelligent Finance" />
+    <meta property="og:description" content="AI-powered financial insights and automation from BYTECUBE." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://bytecube.ai/foundation" />
+    <meta property="og:image" content="/placeholder.svg" />
+    <meta property="og:image:alt" content="BYTECUBE branding" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="BYTECUBE — Intelligent Finance" />
+    <meta name="twitter:description" content="AI-powered financial insights and automation from BYTECUBE." />
+    <meta name="twitter:image" content="/placeholder.svg" />
     <style>
       :root {
         --color-background: #FFFFFF;
@@ -42,6 +63,60 @@
       }
       .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
 
+      /* Respect reduced motion preferences: disable hover animations/transitions */
+      @media (prefers-reduced-motion: reduce) {
+        .btn-primary {
+          transition: none !important;
+        }
+        .btn-primary:hover {
+          transform: none !important;
+          box-shadow: none !important;
+        }
+      }
+
+      /* Accessibility: focus-visible styles for keyboard navigation */
+      a:focus-visible,
+      button:focus-visible,
+      [role="button"]:focus-visible,
+      input:focus-visible,
+      select:focus-visible,
+      textarea:focus-visible {
+        outline: 3px solid var(--graphic-accent-1);
+        outline-offset: 3px;
+        border-radius: 6px;
+      }
+
+      .btn-primary:focus-visible {
+        box-shadow: 0 0 0 3px rgba(200, 157, 109, 0.45), 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .nav-links a:focus-visible,
+      .site-footer ul li a:focus-visible,
+      .logo:focus-visible {
+        text-decoration: underline;
+      }
+
+      /* Skip link: visually hidden until focused */
+      .skip-link {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translateY(-100%);
+        background-color: var(--color-accent-dark);
+        color: var(--color-accent-light);
+        padding: 12px 16px;
+        border-radius: 0 0 6px 6px;
+        text-decoration: none;
+        z-index: 10000;
+        transition: transform 0.2s ease;
+      }
+      .skip-link:focus,
+      .skip-link:focus-visible {
+        transform: translateY(0);
+        outline: 3px solid var(--graphic-accent-1);
+        outline-offset: 0;
+      }
+
       /* Header */
       .site-header { background-color: var(--color-background); padding: 20px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--color-border); }
       .main-nav { display: flex; justify-content: space-between; align-items: center; }
@@ -71,6 +146,7 @@
     </style>
   </head>
   <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
     <header class="site-header">
       <div class="container">
         <nav class="main-nav">
@@ -87,8 +163,8 @@
       </div>
     </header>
 
-    <main>
-      <!-- Main content goes here -->
+    <main id="main-content" tabindex="-1">
+      <h1>BYTECUBE Foundation: Intelligent Finance</h1>
     </main>
 
     <footer class="site-footer">

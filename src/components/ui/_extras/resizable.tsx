@@ -22,9 +22,17 @@ ResizablePanelGroup.displayName = "ResizablePanelGroup"
 
 const ResizablePanel = ResizablePrimitive.Panel
 
-// Cast to any to allow ref passing despite upstream type limitations
-const ResizablePanelResizeHandle: any =
-  ResizablePrimitive.PanelResizeHandle as any
+// Narrow to ForwardRefExoticComponent to preserve ref and prop typings.
+// If upstream types still prevent correct inference, this assertion limits
+// unsoundness compared to `any` while keeping ref support intact.
+type PanelResizeHandleComponent = React.ForwardRefExoticComponent<
+  React.ComponentPropsWithoutRef<typeof ResizablePrimitive.PanelResizeHandle> &
+    React.RefAttributes<
+      React.ElementRef<typeof ResizablePrimitive.PanelResizeHandle>
+    >
+>
+const ResizablePanelResizeHandle =
+  ResizablePrimitive.PanelResizeHandle as PanelResizeHandleComponent
 
 const ResizableHandle = React.forwardRef<
   React.ElementRef<typeof ResizablePrimitive.PanelResizeHandle>,
@@ -36,7 +44,7 @@ const ResizableHandle = React.forwardRef<
   <ResizablePanelResizeHandle
     ref={ref}
     className={cn(
-      "relative flex w-px items-center justify-center bg-border after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-1 data-[panel-group-direction=vertical]:h-px data-[panel-group-direction=vertical]:w-full data-[panel-group-direction=vertical]:after:left-0 data-[panel-group-direction=vertical]:after:h-1 data-[panel-group-direction=vertical]:after:w-full data-[panel-group-direction=vertical]:after:-translate-y-1/2 data-[panel-group-direction=vertical]:after:translate-x-0 [&[data-panel-group-direction=vertical]>div]:rotate-90",
+      "relative flex items-center justify-center select-none touch-none cursor-col-resize w-3 after:absolute after:inset-y-0 after:left-1/2 after:w-px after:-translate-x-1/2 after:bg-border after:content-[''] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-[panel-group-direction=vertical]:h-3 data-[panel-group-direction=vertical]:w-full data-[panel-group-direction=vertical]:cursor-row-resize data-[panel-group-direction=vertical]:after:left-0 data-[panel-group-direction=vertical]:after:top-1/2 data-[panel-group-direction=vertical]:after:h-px data-[panel-group-direction=vertical]:after:w-full data-[panel-group-direction=vertical]:after:-translate-y-1/2 data-[panel-group-direction=vertical]:after:translate-x-0 [&[data-panel-group-direction=vertical]>div]:rotate-90",
       className
     )}
     {...props}

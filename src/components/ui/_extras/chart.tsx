@@ -1,10 +1,16 @@
 import * as React from "react"
 import * as RechartsPrimitive from "recharts"
+import type { TooltipProps } from "recharts"
 
 import { cn } from "@/lib/utils"
 
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: "", dark: ".dark" } as const
+
+// Validate that a key used in CSS custom properties only contains
+// letters, digits, hyphens, or underscores.
+const isValidCssCustomPropertyKey = (key: string): boolean =>
+  /^[A-Za-z0-9_-]+$/.test(key)
 
 export type ChartConfig = Record<
   string,
@@ -69,10 +75,13 @@ ChartContainer.displayName = "Chart"
 
 const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
   const colorConfig = Object.entries(config).filter(
-    ([_, config]) => config.theme || config.color
+    ([, itemConfig]) => itemConfig.theme || itemConfig.color
+  )
+  const safeColorConfig = colorConfig.filter(([key]) =>
+    isValidCssCustomPropertyKey(key)
   )
 
-  if (!colorConfig.length) {
+  if (!safeColorConfig.length) {
     return null
   }
 
@@ -82,8 +91,8 @@ const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
         __html: Object.entries(THEMES)
           .map(
             ([theme, prefix]) => `
-${prefix} [data-chart=${id}] {
-${colorConfig
+${prefix} [data-chart="${id}"] {
+${safeColorConfig
   .map(([key, itemConfig]) => {
     const color =
       itemConfig.theme?.[theme as keyof typeof itemConfig.theme] ||
@@ -104,13 +113,15 @@ const ChartTooltip = RechartsPrimitive.Tooltip
 
 const ChartTooltipContent = React.forwardRef<
   HTMLDivElement,
-  React.ComponentProps<typeof RechartsPrimitive.Tooltip> &
+  TooltipProps<number, string> &
     React.ComponentProps<"div"> & {
       hideLabel?: boolean
       hideIndicator?: boolean
       indicator?: "line" | "dot" | "dashed"
       nameKey?: string
       labelKey?: string
+      labelClassName?: string
+      color?: string
     }
 >(
   (
@@ -192,7 +203,7 @@ const ChartTooltipContent = React.forwardRef<
 
             return (
               <div
-                key={item.dataKey}
+                key={`${key}-${index}`}
                 className={cn(
                   "flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-muted-foreground",
                   indicator === "dot" && "items-center"
@@ -238,7 +249,7 @@ const ChartTooltipContent = React.forwardRef<
                           {itemConfig?.label || item.name}
                         </span>
                       </div>
-                      {item.value && (
+                      {item.value != null && (
                         <span className="font-mono font-medium tabular-nums text-foreground">
                           {item.value.toLocaleString()}
                         </span>
@@ -291,7 +302,12 @@ const ChartLegendContent = React.forwardRef<
 
           return (
             <div
-              key={item.value}
+              key={
+                (item as any).dataKey ||
+                (item as any).name ||
+                (nameKey && (item as any).payload?.[nameKey]) ||
+                (item as any).value
+              }
               className={cn(
                 "flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground"
               )}
@@ -335,24 +351,22 @@ function getPayloadConfigFromPayload(
 
   let configLabelKey: string = key
 
-  if (
-    key in payload &&
-    typeof payload[key as keyof typeof payload] === "string"
-  ) {
-    configLabelKey = payload[key as keyof typeof payload] as string
+  const payloadRecord = payload as Record<string, unknown>
+  const payloadPayloadRecord = payloadPayload as
+    | Record<string, unknown>
+    | undefined
+
+  if (key in payloadRecord && typeof payloadRecord[key] === "string") {
+    configLabelKey = payloadRecord[key] as string
   } else if (
-    payloadPayload &&
-    key in payloadPayload &&
-    typeof payloadPayload[key as keyof typeof payloadPayload] === "string"
+    payloadPayloadRecord &&
+    key in payloadPayloadRecord &&
+    typeof payloadPayloadRecord[key] === "string"
   ) {
-    configLabelKey = payloadPayload[
-      key as keyof typeof payloadPayload
-    ] as string
+    configLabelKey = payloadPayloadRecord[key] as string
   }
 
-  return configLabelKey in config
-    ? config[configLabelKey]
-    : config[key as keyof typeof config]
+  return configLabelKey in config ? config[configLabelKey] : config[key]
 }
 
 export {

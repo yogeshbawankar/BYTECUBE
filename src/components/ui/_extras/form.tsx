@@ -22,9 +22,9 @@ type FormFieldContextValue<
   name: TName
 }
 
-const FormFieldContext = React.createContext<FormFieldContextValue>(
-  {} as FormFieldContextValue
-)
+const FormFieldContext = React.createContext<
+  FormFieldContextValue | undefined
+>(undefined)
 
 const FormField = <
   TFieldValues extends FieldValues = FieldValues,
