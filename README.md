@@ -197,6 +197,39 @@ npm run deploy
 
 4) Alternatively, use GitHub Actions to build and push `dist` to the `gh-pages` branch, and enable Pages in repo settings.
 
+5) Alternative routing approach: HashRouter or BrowserRouter `basename`
+
+- Using `HashRouter` avoids base path and rewrite complexities on GitHub Pages because routes are in the URL fragment after `#`, so Pages always serves `index.html`. If deploying under a subpath, still set Vite `base` for asset URLs.
+- Using `BrowserRouter` with a `basename` (e.g., `/your-repo`) keeps clean URLs, but you must keep the `404.html` fallback described above.
+
+Concise `HashRouter` example in the render call:
+
+```tsx
+// src/main.tsx
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { HashRouter } from "react-router-dom";
+import App from "./App";
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
+    <HashRouter>
+      <App />
+    </HashRouter>
+  </React.StrictMode>
+);
+```
+
+`BrowserRouter` with `basename`:
+
+```tsx
+import { BrowserRouter } from "react-router-dom";
+// ...
+<BrowserRouter basename="/your-repo">
+  <App />
+</BrowserRouter>
+```
+
 ---
 
 ### AWS S3 (optional CloudFront)
@@ -239,3 +272,21 @@ If you encounter blank pages or 404s on direct links, double-check:
 Copyright (c) 2025 BYTECUBE. All rights reserved.
 
 This software is proprietary and confidential. Use of this software is governed by the BYTECUBE Proprietary Software License. See the `LICENSE` file for full terms. If you have a separately executed commercial license agreement with BYTECUBE, the terms of that agreement govern your use of the software to the extent of any conflict.
+
+> **Note:** If you are using React Router's `BrowserRouter`, you must also set the [`basename`](https://reactrouter.com/en/main/routers/browser-router#basename) prop to the same subpath as Vite's `base`. This ensures that all routes and links work correctly when your app is deployed under a subpath (otherwise, navigation and deep links may break).
+>
+> For example, if your Vite `base` is `/your-repo/`, update your `src/main.tsx` like this:
+>
+> ```tsx
+> import { createRoot } from 'react-dom/client';
+> import { BrowserRouter } from 'react-router-dom';
+> import App from './App';
+> import './index.css';
+>
+> createRoot(document.getElementById('root')!).render(
+>   <BrowserRouter basename="/your-repo/"> {/* match Vite base! */}
+>     <App />
+>   </BrowserRouter>
+> );
+> ```
+> Replace `/your-repo/` with your actual subpath (e.g. `/bytecube/`).
