@@ -33,7 +33,28 @@ const InputOTPSlot = React.forwardRef<
   React.ComponentPropsWithoutRef<"div"> & { index: number }
 >(({ index, className, ...props }, ref) => {
   const inputOTPContext = React.useContext(OTPInputContext)
-  const { char, hasFakeCaret, isActive } = inputOTPContext.slots[index]
+
+  if (!inputOTPContext) {
+    throw new Error(
+      "InputOTPSlot must be used within an OTPInput provider (OTPInputContext is undefined)."
+    )
+  }
+
+  const { slots } = inputOTPContext as { slots: Array<any> }
+
+  if (!Array.isArray(slots)) {
+    throw new Error(
+      "InputOTPSlot encountered invalid context: expected 'slots' to be an array."
+    )
+  }
+
+  if (index < 0 || index >= slots.length) {
+    throw new Error(
+      `InputOTPSlot index out of bounds: received ${index}, but slots length is ${slots.length}.`
+    )
+  }
+
+  const { char, hasFakeCaret, isActive } = slots[index]
 
   return (
     <div

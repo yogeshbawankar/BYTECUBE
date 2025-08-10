@@ -1,10 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { Link, useLocation } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { NAV_ITEMS } from "@/constants/navigation";
 
 const Navbar = () => {
-  const location = useLocation();
-  const isActive = (path: string) => location.pathname === path;
+  
 
   return (
     <nav className="sticky top-0 z-50 bg-white border-b border-[#EAEAEA] shadow-[0_1px_0_0_#EAEAEA]">
@@ -23,23 +22,24 @@ const Navbar = () => {
           {/* Navigation Links */}
           <div className="hidden md:flex items-center justify-center gap-8">
             {NAV_ITEMS.map((item) => (
-              <Link
+              <NavLink
                 key={item.to}
                 to={item.to}
-                className={`font-medium text-foreground hover:underline ${isActive(item.to) ? "underline" : ""}`}
+                end={item.to === "/"}
+                className={({ isActive }) =>
+                  `font-medium text-foreground hover:underline ${isActive ? "underline" : ""}`
+                }
               >
                 {item.label}
-              </Link>
+              </NavLink>
             ))}
           </div>
 
           {/* CTA Button */}
           <div className="flex justify-end">
-            <Link to="/contact">
-              <Button className="font-medium">
-                Request a Demo
-              </Button>
-            </Link>
+            <Button asChild className="font-medium">
+              <Link to="/contact">Request a Demo</Link>
+            </Button>
           </div>
         </div>
       </div>

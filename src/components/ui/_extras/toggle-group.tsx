@@ -47,6 +47,7 @@ const ToggleGroupItem = React.forwardRef<
         }),
         className
       )}
+      type="button"
       {...props}
     >
       {children}

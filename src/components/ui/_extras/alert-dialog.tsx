@@ -103,6 +103,7 @@ const AlertDialogAction = React.forwardRef<
   <AlertDialogPrimitive.Action
     ref={ref}
     className={cn(buttonVariants(), className)}
+    type="button"
     {...props}
   />
 ))
@@ -119,6 +120,7 @@ const AlertDialogCancel = React.forwardRef<
       "mt-2 sm:mt-0",
       className
     )}
+    type="button"
     {...props}
   />
 ))

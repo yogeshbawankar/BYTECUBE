@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import type React from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -6,7 +7,11 @@ import { Label } from '@/components/ui/label';
 
 const Contact = () => {
   const [form, setForm] = useState({ name: '', email: '', company: '', message: '' });
-  const update = (e: any) => setForm({ ...form, [e.target.name]: e.target.value });
+  const update = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setForm((previous) => ({ ...previous, [e.target.name]: e.target.value }));
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  };
 
   return (
     <div className="min-h-screen">
@@ -25,7 +30,7 @@ const Contact = () => {
             </div>
           </div>
           <div>
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleSubmit}>
               <div>
                 <Label htmlFor="name">Full Name</Label>
                 <Input id="name" name="name" required value={form.name} onChange={update} />

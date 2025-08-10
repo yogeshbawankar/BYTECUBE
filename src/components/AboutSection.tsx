@@ -27,8 +27,8 @@ const AboutSection = () => {
             </h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {founders.map((founder, index) => (
-                <div key={index} className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:border-primary/30 transition-all duration-300 group">
+              {founders.map((founder) => (
+                <div key={founder.linkedin} className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:border-primary/30 transition-all duration-300 group">
                   {/* Founder Image Placeholder */}
                   <div className="w-32 h-32 mx-auto mb-6 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 border-2 border-primary/30 flex items-center justify-center">
                     <div className="text-primary/60 text-sm text-center">
@@ -47,15 +47,18 @@ const AboutSection = () => {
                     </p>
                     
                     {/* LinkedIn Link */}
-                    <a
-                      href={founder.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors duration-200 group/link"
-                    >
-                      <Linkedin className="w-5 h-5 group-hover/link:scale-110 transition-transform duration-200" />
-                      <span className="text-sm">LinkedIn</span>
-                    </a>
+                    {founder.linkedin && (
+                      <a
+                        href={founder.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="LinkedIn profile"
+                        className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors duration-200 group/link"
+                      >
+                        <Linkedin className="w-5 h-5 group-hover/link:scale-110 transition-transform duration-200" />
+                        <span className="text-sm">LinkedIn</span>
+                      </a>
+                    )}
                   </div>
                 </div>
               ))}

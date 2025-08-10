@@ -107,7 +107,4 @@ All colors MUST be HSL.
   }
 }
 
-/* Global utility: consistent max-width container */
-.container {
-  max-width: 1140px;
-}
+/* Removed custom .container to avoid overriding Tailwind's responsive container */

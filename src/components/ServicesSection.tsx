@@ -1,8 +1,14 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ShieldCheck, LineChart, FileCheck2 } from 'lucide-react'
+import { ShieldCheck, LineChart, FileCheck2, type LucideIcon } from 'lucide-react'
+
+type Service = {
+  title: string;
+  description: string;
+  icon: LucideIcon;
+};
 
 const ServicesSection = () => {
-  const services = [
+  const services: Service[] = [
     {
       title: "AI-Powered Risk Analysis",
       description: "Proactively identify and mitigate financial risks with our predictive analytics models.",
@@ -30,11 +36,11 @@ const ServicesSection = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <Card key={index} className="bg-card border-0 shadow-sm hover:shadow-md transition-shadow">
+          {services.map((service) => (
+            <Card key={service.title} className="bg-card border-0 shadow-sm hover:shadow-md transition-shadow">
               <CardHeader className="flex flex-col items-center text-center gap-2">
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <service.icon className="w-6 h-6 text-primary" />
+                  <service.icon aria-hidden="true" className="w-6 h-6 text-primary" />
                 </div>
                 <CardTitle className="text-xl font-semibold text-card-foreground">
                   {service.title}

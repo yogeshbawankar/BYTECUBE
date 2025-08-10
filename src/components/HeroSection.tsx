@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import type React from "react";
 import { Link } from "react-router-dom";
 import heroGraphic from "@/assets/hero-graphic.jpg";
 
@@ -18,26 +19,26 @@ const HeroSection = () => {
               to optimize operations, manage risk, and drive growth.
             </p>
             
-            <Link to="/services">
-              <Button 
-                size="lg"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 font-medium text-lg px-8 py-6"
-              >
-                Explore Our Services
-              </Button>
-            </Link>
+            <Button 
+              asChild
+              size="lg"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 font-medium text-lg px-8 py-6"
+            >
+              <Link to="/services">Explore Our Services</Link>
+            </Button>
           </div>
 
           {/* Right Column - Abstract Graphic */}
           <div className="flex justify-center lg:justify-end">
-            <div className="relative">
+            {/* Reserve space to avoid CLS using a fixed aspect ratio */}
+            <div className="relative w-full aspect-[16/9] max-w-3xl">
               <img
                 src={heroGraphic}
                 alt="Abstract AI network visualization"
-                className="max-w-full h-auto"
+                className="absolute inset-0 h-full w-full object-contain"
                 loading="eager"
                 decoding="async"
-                fetchPriority="high"
+                fetchPriority={"high" as unknown as React.ImgHTMLAttributes<HTMLImageElement>["fetchPriority"]}
               />
             </div>
           </div>

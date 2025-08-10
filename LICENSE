@@ -1,0 +1,51 @@
+BYTECUBE PROPRIETARY SOFTWARE LICENSE AGREEMENT
+
+Copyright (c) 2025 BYTECUBE. All rights reserved.
+
+IMPORTANT: This Agreement is a legal contract between you (either an individual or a single legal entity) and BYTECUBE ("Licensor") governing your use of the software made available in this repository, including all associated source code, object code, scripts, assets, and documentation (collectively, the "Software"). By downloading, installing, copying, or otherwise using the Software, you agree to be bound by the terms of this Agreement. If you do not agree, do not download, install, copy, access, or use the Software.
+
+1. DEFINITIONS
+1.1 "Authorized Users" means your employees and contractors acting on your behalf and for your internal business purposes.
+1.2 "Order" means the applicable purchase order, agreement, or subscription confirming your rights to use the Software.
+
+2. LICENSE GRANT
+2.1 Subject to your continuous compliance with this Agreement and the applicable Order, Licensor grants you a limited, personal, revocable, non-exclusive, non-transferable, non-sublicensable license to install and use the Software solely for your internal business purposes and only in accordance with the scope (including any environment, seat, or usage limitations) set out in the Order.
+2.2 If you have not entered into an Order with Licensor, your license is limited to evaluation and non-production use for the sole purpose of assessing the Software, and may be revoked at any time by Licensor.
+
+3. RESTRICTIONS
+You shall not, and shall not permit any third party to: (a) copy (except for reasonable backup), modify, adapt, translate, or create derivative works of the Software; (b) distribute, sell, sublicense, rent, lease, transfer, host for third parties, or otherwise make the Software available to any third party; (c) use the Software for time-sharing, service bureau, or as-a-service purposes to third parties without Licensor’s prior written consent; (d) reverse engineer, decompile, disassemble, or otherwise attempt to derive the source code of any non-source-code portions of the Software, except to the extent such restriction is prohibited by applicable law; (e) remove, alter, or obscure any proprietary notices; (f) use the Software to develop a competing product or service or for any unlawful purpose; or (g) exceed any usage limitations in the Order.
+
+4. OWNERSHIP
+The Software is licensed, not sold. Licensor and its licensors retain all right, title, and interest in and to the Software, including all intellectual property rights therein. No rights are granted to you other than as expressly set forth in this Agreement.
+
+5. CONFIDENTIALITY
+The Software, including its features, functionality, and performance information, constitutes Licensor’s confidential information. You shall protect such information using the same degree of care you use to protect your own confidential information (but no less than a reasonable degree of care) and shall not disclose it to any third party, except to Authorized Users subject to confidentiality obligations.
+
+6. SUPPORT, UPDATES, AND OPEN SOURCE COMPONENTS
+6.1 Any support or maintenance is provided only as set forth in an applicable Order or separate support terms. Licensor may, but is not obligated to, provide updates or fixes. Any updates provided are deemed part of the Software and subject to this Agreement.
+6.2 The Software may include third-party open source components governed by their respective licenses. To the extent required by such licenses, those terms will supersede this Agreement with respect to the applicable components. A list of third-party notices may be provided in the documentation or source files.
+
+7. TERM AND TERMINATION
+7.1 This Agreement remains in effect until terminated. Licensor may suspend or terminate your license immediately upon notice if you breach this Agreement. Either party may terminate if the other party materially breaches and fails to cure within 30 days after written notice (if curable).
+7.2 Upon termination, you must immediately cease all use of the Software and destroy all copies. Sections 3–5 and 7–12 shall survive termination.
+
+8. WARRANTY DISCLAIMER
+THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS, IMPLIED, STATUTORY, OR OTHERWISE, INCLUDING ANY IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT. LICENSOR DOES NOT WARRANT THAT THE SOFTWARE WILL BE ERROR-FREE OR UNINTERRUPTED.
+
+9. LIMITATION OF LIABILITY
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT WILL LICENSOR BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS, REVENUE, DATA, OR GOODWILL, ARISING OUT OF OR RELATED TO THIS AGREEMENT OR THE USE OF OR INABILITY TO USE THE SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. LICENSOR’S TOTAL LIABILITY FOR ALL CLAIMS RELATING TO THE SOFTWARE WILL NOT EXCEED THE AMOUNTS PAID BY YOU TO LICENSOR FOR THE SOFTWARE IN THE TWELVE (12) MONTHS PRECEDING THE EVENT GIVING RISE TO THE CLAIM (OR, IF NO FEES WERE PAID, ONE HUNDRED U.S. DOLLARS ($100)). SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OR LIMITATION OF LIABILITY; IN SUCH CASES, THE ABOVE LIMITATIONS SHALL APPLY TO THE MAXIMUM EXTENT PERMITTED BY LAW.
+
+10. INDEMNITY
+To the extent permitted by law, you will defend, indemnify, and hold harmless Licensor from and against any claims, damages, liabilities, costs, and expenses (including reasonable attorneys’ fees) arising from your use of the Software in violation of this Agreement or applicable law.
+
+11. EXPORT COMPLIANCE
+You represent and warrant that you are not located in, under the control of, or a national or resident of any country or region subject to sanctions or embargoes, and that you will not export or re-export the Software in violation of applicable export control laws and regulations.
+
+12. GOVERNING LAW; VENUE
+This Agreement is governed by and construed in accordance with the laws of the State of Delaware, USA, without regard to its conflict of laws principles. The parties consent to the exclusive jurisdiction and venue of the state and federal courts located in Delaware for any disputes arising out of or relating to this Agreement.
+
+13. ENTIRE AGREEMENT; AMENDMENT
+This Agreement, together with any applicable Order, constitutes the entire agreement between the parties regarding the Software and supersedes all prior or contemporaneous understandings. Any amendments must be in writing and signed by authorized representatives of both parties. If there is a conflict between this Agreement and an Order, the Order controls with respect to the scope of the license granted therein.
+
+CONTACT
+For questions regarding this Agreement or to obtain a commercial license, contact: legal@bytecube.com.

@@ -1,10 +1,11 @@
 import { Cpu, Shield, Zap, BarChart3, Cloud, Lock, ChevronRight } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const Feature = ({ icon: Icon, title, text }: { icon: any; title: string; text: string }) => (
+const Feature = ({ icon: Icon, title, text }: { icon: LucideIcon; title: string; text: string }) => (
   <div className="border border-[#EAEAEA] rounded-lg p-6 bg-white">
     <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-      <Icon className="w-6 h-6 text-primary" />
+      <Icon className="w-6 h-6 text-primary" aria-hidden="true" />
     </div>
     <div className="text-lg font-semibold mb-1">{title}</div>
     <div className="text-[#555555]">{text}</div>
@@ -38,11 +39,11 @@ const Product = () => {
             <div className="text-center">
               <div className="font-semibold">1. Integrate Data</div>
             </div>
-            <ChevronRight />
+            <ChevronRight aria-hidden="true" />
             <div className="text-center">
               <div className="font-semibold">2. Process with AI</div>
             </div>
-            <ChevronRight />
+            <ChevronRight aria-hidden="true" />
             <div className="text-center">
               <div className="font-semibold">3. Visualize Insights</div>
             </div>

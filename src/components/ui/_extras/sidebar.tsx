@@ -7,9 +7,9 @@ import { useIsMobile } from "@/hooks/use-mobile"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Separator } from "@/components/ui/separator"
-import { Sheet, SheetContent } from "@/components/ui/sheet"
-import { Skeleton } from "@/components/ui/skeleton"
+import { Separator } from "@/components/ui/_extras/separator"
+import { Sheet, SheetContent } from "@/components/ui/_extras/sheet"
+import { Skeleton } from "@/components/ui/_extras/skeleton"
 import {
   Tooltip,
   TooltipContent,
@@ -19,6 +19,9 @@ import {
 
 const SIDEBAR_COOKIE_NAME = "sidebar:state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
+// Cookie security attributes (configurable if needed)
+const SIDEBAR_COOKIE_SAME_SITE: "Strict" | "Lax" | "None" = "Strict"
+const SIDEBAR_COOKIE_SECURE = true
 const SIDEBAR_WIDTH = "16rem"
 const SIDEBAR_WIDTH_MOBILE = "18rem"
 const SIDEBAR_WIDTH_ICON = "3rem"
@@ -81,8 +84,23 @@ const SidebarProvider = React.forwardRef<
           _setOpen(openState)
         }
 
-        // This sets the cookie to keep the sidebar state.
-        document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`
+        // This sets the cookie to keep the sidebar state with security attributes.
+        const cookieAttributes = [
+          "path=/",
+          `max-age=${SIDEBAR_COOKIE_MAX_AGE}`,
+          `SameSite=${SIDEBAR_COOKIE_SAME_SITE}`,
+        ]
+
+        // Only add Secure when running over HTTPS to avoid cookie being ignored in dev over HTTP.
+        if (
+          SIDEBAR_COOKIE_SECURE &&
+          typeof window !== "undefined" &&
+          window.location.protocol === "https:"
+        ) {
+          cookieAttributes.push("Secure")
+        }
+
+        document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; ${cookieAttributes.join("; ")}`
       },
       [setOpenProp, open]
     )
@@ -294,7 +312,6 @@ const SidebarRail = React.forwardRef<
       ref={ref}
       data-sidebar="rail"
       aria-label="Toggle Sidebar"
-      tabIndex={-1}
       onClick={toggleSidebar}
       title="Toggle Sidebar"
       className={cn(
@@ -648,9 +665,10 @@ const SidebarMenuSkeleton = React.forwardRef<
     showIcon?: boolean
   }
 >(({ className, showIcon = false, ...props }, ref) => {
-  // Random width between 50 to 90%.
-  const width = React.useMemo(() => {
-    return `${Math.floor(Math.random() * 40) + 50}%`
+  // Generate width on client to avoid SSR/CSR hydration mismatch.
+  const [skeletonWidth, setSkeletonWidth] = React.useState<string>()
+  React.useEffect(() => {
+    setSkeletonWidth(`${Math.floor(Math.random() * 40) + 50}%`)
   }, [])
 
   return (
@@ -670,9 +688,11 @@ const SidebarMenuSkeleton = React.forwardRef<
         className="h-4 flex-1 max-w-[--skeleton-width]"
         data-sidebar="menu-skeleton-text"
         style={
-          {
-            "--skeleton-width": width,
-          } as React.CSSProperties
+          (skeletonWidth
+            ? {
+                "--skeleton-width": skeletonWidth,
+              }
+            : undefined) as React.CSSProperties
         }
       />
     </div>

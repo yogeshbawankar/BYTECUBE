@@ -93,16 +93,16 @@ const About = () => {
             </h2>
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {stats.map((stat, index) => (
-                <div key={index} className="text-center">
+              {stats.map(({ icon: Icon, value, label }) => (
+                <div key={label} className="text-center">
                   <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/20 flex items-center justify-center">
-                    <stat.icon className="w-8 h-8 text-primary" />
+                    <Icon className="w-8 h-8 text-primary" />
                   </div>
                   <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
-                    {stat.value}
+                    {value}
                   </div>
                   <div className="text-foreground/80">
-                    {stat.label}
+                    {label}
                   </div>
                 </div>
               ))}

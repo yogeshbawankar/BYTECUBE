@@ -10,23 +10,60 @@ const Footer = () => {
           <div className="text-2xl font-bold text-white mb-3">BYTECUBE</div>
           <p>Intelligent Finance, Powered by AI</p>
         </div>
-        <div>
+        <nav aria-label="Footer quick links">
           <div className="text-white font-semibold mb-4">Quick Links</div>
           <ul className="space-y-2">
             {NAV_ITEMS.map((item) => (
               <li key={item.to}><Link to={item.to}>{item.label}</Link></li>
             ))}
-            <li><Link to="/contact">Request a Demo</Link></li>
+            <li>
+              <Link
+                to="/contact"
+                className="inline-flex items-center rounded-sm px-1 py-0.5 outline-none transition-colors hover:text-white focus-visible:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#222222]"
+              >
+                Request a Demo
+              </Link>
+            </li>
           </ul>
-        </div>
+        </nav>
         <div>
           <div className="text-white font-semibold mb-4">Contact</div>
-          <p>123 Market Street, Suite 500, Metropolis</p>
-          <p>+1 (555) 123-4567</p>
-          <p>hello@bytecube.ai</p>
+          <address className="not-italic space-y-1">
+            <p>123 Market Street, Suite 500, Metropolis</p>
+            <p>
+              <a
+                href="tel:+15551234567"
+                className="inline-flex items-center rounded-sm px-1 py-0.5 outline-none transition-colors hover:text-white focus-visible:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#222222]"
+              >
+                +1 (555) 123-4567
+              </a>
+            </p>
+            <p>
+              <a
+                href="mailto:hello@bytecube.ai"
+                className="inline-flex items-center rounded-sm px-1 py-0.5 outline-none transition-colors hover:text-white focus-visible:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#222222]"
+              >
+                hello@bytecube.ai
+              </a>
+            </p>
+          </address>
           <div className="flex gap-4 mt-4">
-            <a href="#" aria-label="LinkedIn"><Linkedin className="text-white/80" /></a>
-            <a href="#" aria-label="Twitter"><Twitter className="text-white/80" /></a>
+            <a
+              href="https://www.linkedin.com/company/bytecubeai"
+              aria-label="LinkedIn"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Linkedin className="text-white/80" aria-hidden="true" />
+            </a>
+            <a
+              href="https://twitter.com/bytecubeai"
+              aria-label="Twitter"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Twitter className="text-white/80" aria-hidden="true" />
+            </a>
           </div>
         </div>
       </div>

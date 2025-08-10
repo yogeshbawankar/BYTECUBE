@@ -1,6 +1,12 @@
-import { ShieldCheck, LineChart, FileCheck2, Database } from 'lucide-react';
+import { ShieldCheck, LineChart, FileCheck2, Database, type LucideIcon } from 'lucide-react';
 
-const ServiceBlock = ({ icon: Icon, title, text }: { icon: any; title: string; text: string }) => (
+interface ServiceBlockProps {
+  icon: LucideIcon;
+  title: string;
+  text: string;
+}
+
+const ServiceBlock = ({ icon: Icon, title, text }: ServiceBlockProps) => (
   <div className="border border-[#EAEAEA] rounded-lg p-6 bg-white">
     <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
       <Icon className="w-6 h-6 text-primary" />

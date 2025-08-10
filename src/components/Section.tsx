@@ -1,18 +1,18 @@
-import { ReactNode } from "react";
+import { forwardRef, type ComponentPropsWithoutRef, type ElementRef } from "react";
 
-type Props = {
-  className?: string;
-  children: ReactNode;
-  id?: string;
-};
+type SectionProps = ComponentPropsWithoutRef<"section">;
 
-const Section = ({ className = "", children, id }: Props) => {
-  return (
-    <section id={id} className={`py-16 ${className}`}>
-      <div className="container mx-auto px-6">{children}</div>
-    </section>
-  );
-};
+const Section = forwardRef<ElementRef<"section">, SectionProps>(
+  ({ className = "", children, ...rest }, ref) => {
+    return (
+      <section ref={ref} className={`py-16 ${className}`} {...rest}>
+        <div className="container mx-auto px-6">{children}</div>
+      </section>
+    );
+  }
+);
+
+Section.displayName = "Section";
 
 export default Section;
 

@@ -55,12 +55,19 @@
       .site-footer { background-color: var(--color-footer-bg); color: var(--color-footer-text); padding: 80px 0 40px 0; }
       .footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-bottom: 60px; }
       .site-footer h4 { font-size: 1.2rem; font-weight: 700; color: var(--color-accent-light); margin-bottom: 20px; }
-      .site-footer p { color: var(--color-footer-text); line-height: 1.6; }
+      .site-footer p { color: #D6D6D6; line-height: 1.6; }
       .site-footer ul { list-style: none; }
       .site-footer ul li a { color: var(--color-footer-text); text-decoration: none; margin-bottom: 10px; display: inline-block; transition: color 0.3s ease; }
       .site-footer ul li a:hover { color: var(--color-accent-light); }
       .footer-bottom { text-align: center; border-top: 1px solid #444; padding-top: 40px; }
-      .footer-bottom p { font-size: 0.9rem; color: #888; }
+      .footer-bottom p { font-size: 0.9rem; color: #A3A3A3; }
+      
+      /* Responsive: stack footer columns on small screens */
+      @media (max-width: 768px) {
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+      }
     </style>
   </head>
   <body>
