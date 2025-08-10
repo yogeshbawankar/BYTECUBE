@@ -65,9 +65,16 @@ const HowToUse = () => {
                         isActive ? "border-foreground/40 font-semibold" : "border-black/10 hover:border-foreground/30"
                       }`}
                     >
-                      <div className="flex items-center justify-between">
-                        <span>{uc.title}</span>
-                        <span aria-hidden="true">{isActive ? "^" : "v"}</span>
+                      <div className="flex items-center">
+                        <span
+                          className={
+                            isActive
+                              ? "underline decoration-[#191919] underline-offset-8"
+                              : "no-underline"
+                          }
+                        >
+                          {uc.title}
+                        </span>
                       </div>
                       <div className="text-sm text-muted-foreground mt-1">{uc.description}</div>
                     </button>
