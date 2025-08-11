@@ -45,7 +45,7 @@ const InputOTPSlot = React.forwardRef<
     return null
   }
 
-  const { slots } = inputOTPContext as { slots: Array<any> }
+  const { slots } = inputOTPContext as { slots: Array<{ char?: string | number; hasFakeCaret?: boolean; isActive?: boolean }> }
 
   if (!Array.isArray(slots)) {
     throw new Error(

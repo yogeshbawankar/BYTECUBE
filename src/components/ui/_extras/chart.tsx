@@ -210,7 +210,13 @@ const ChartTooltipContent = React.forwardRef<
                 )}
               >
                 {formatter && item?.value !== undefined && item.name ? (
-                  formatter(item.value, item.name, item, index, item.payload)
+                  formatter(
+                    item.value as number,
+                    String(item.name),
+                    item as unknown as Record<string, unknown>,
+                    index,
+                    undefined
+                  )
                 ) : (
                   <>
                     {itemConfig?.icon ? (
@@ -297,17 +303,36 @@ const ChartLegendContent = React.forwardRef<
         )}
       >
         {payload.map((item) => {
-          const key = `${nameKey || item.dataKey || "value"}`
+          const record = item as unknown as Record<string, unknown>
+          const candidateKey = (() => {
+            const dataKey = record["dataKey"]
+            if (typeof dataKey === "string" || typeof dataKey === "number") {
+              return dataKey
+            }
+            const name = record["name"]
+            if (typeof name === "string" || typeof name === "number") {
+              return name
+            }
+            if (nameKey && typeof record["payload"] === "object" && record["payload"] !== null) {
+              const nested = record["payload"] as Record<string, unknown>
+              const nestedValue = nested[nameKey]
+              if (typeof nestedValue === "string" || typeof nestedValue === "number") {
+                return nestedValue
+              }
+            }
+            const value = record["value"]
+            if (typeof value === "string" || typeof value === "number") {
+              return value
+            }
+            return undefined
+          })()
+
+          const key = `${nameKey || (candidateKey ?? "value")}`
           const itemConfig = getPayloadConfigFromPayload(config, item, key)
 
           return (
             <div
-              key={
-                (item as any).dataKey ||
-                (item as any).name ||
-                (nameKey && (item as any).payload?.[nameKey]) ||
-                (item as any).value
-              }
+              key={`${String(candidateKey ?? key)}-${index}`}
               className={cn(
                 "flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground"
               )}

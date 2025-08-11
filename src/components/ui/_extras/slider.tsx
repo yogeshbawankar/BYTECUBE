@@ -9,11 +9,14 @@ const Slider = React.forwardRef<
   React.ElementRef<typeof SliderPrimitive.Root>,
   Omit<React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root>, "children">
 >(({ className, ...props }, ref) => {
-  const thumbsCount = Array.isArray((props as any).value)
-    ? ((props as any).value as number[]).length
-    : Array.isArray((props as any).defaultValue)
-    ? ((props as any).defaultValue as number[]).length
-    : 1
+  const getArrayLength = (value: unknown): number => {
+    return Array.isArray(value) ? value.length : 0
+  }
+
+  const thumbsCount =
+    getArrayLength((props as { value?: number[] }).value) ||
+    getArrayLength((props as { defaultValue?: number[] }).defaultValue) ||
+    1
 
   return (
     <SliderPrimitive.Root
